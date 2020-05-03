@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/graph">
+        <file>graph/its.png</file>
+        <file>graph/ristek.png</file>
+    </qresource>
+</RCC>
