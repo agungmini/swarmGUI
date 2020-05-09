@@ -120,14 +120,14 @@ void MainWindow::on_radioButton_clicked()
 
 void MainWindow::on_radioButton_2_clicked()
 {
-    runParam= 2;    //pilih radiobutton untuk start gas
+    runParam= 2;    //pilih radiobutton untuk start formation
     pilih_radiobtn(runParam);
 
 }
 
 void MainWindow::on_radioButton_3_clicked()
 {
-    runParam= 3;    //pilih radiobutton untuk start formation
+    runParam= 3;    //pilih radiobutton untuk start gas
     pilih_radiobtn(runParam);
 }
 
@@ -162,7 +162,7 @@ void MainWindow::start_up()
     ui->pb4->setText("clear");
     ui->groupBox_2->setTitle("Running paramter");
     std::array<QRadioButton*,4> rdbtn={ui->radioButton,ui->radioButton_2,ui->radioButton_3,ui->radioButton_4};
-    QString teks[4]={"Combined","Gas","Formation","Intelligence"};
+    QString teks[4]={"Combined","Formation","Gas","Intelligence"};
     for(int i=0;i<4;i++){
         rdbtn[i]->setText(teks[i]);
     }
@@ -438,12 +438,12 @@ void MainWindow::serialRecv()
         tmp[1]=(float)gasR/10;  //ppm gas kanan
         tmp[2]=(float)pid0/10;  //pwm kiri
         tmp[3]=(float)pid1/10;  //pwm kanan
-        tmp[4]=(float)cartgX/50;    //self global position dalam cartesian X (A)
-        tmp[5]=(float)cartgY/50;    //self global position dalam cartesian Y (A)
-        tmp[6]=((float)(pos1/10)*qSin((teta1+orientasi)/PI))+tmp[4]; //global position dalam cartesian X (B)
-        tmp[7]=((float)(pos1/10)*qCos((teta1+orientasi)/PI))+tmp[5]; //global position dalam cartesian X (B)
-        tmp[8]=((float)(pos2/10)*qSin((teta2+orientasi)/PI))+tmp[4]; //global position dalam cartesian X (C)
-        tmp[9]=((float)(pos2/10)*qCos((teta2+orientasi)/PI))+tmp[5]; //global position dalam cartesian X (C)
+        tmp[4]=(float)cartgX/10;    //self global position dalam cartesian X (A)
+        tmp[5]=(float)cartgY/10;    //self global position dalam cartesian Y (A)
+        tmp[6]=((float)(pos1/10)*qSin(((teta1-orientasi)%360)/PI))+tmp[4]; //global position dalam cartesian X (B)
+        tmp[7]=((float)(pos1/10)*qCos(((teta1-orientasi)%360)/PI))+tmp[5]; //global position dalam cartesian X (B)
+        tmp[8]=((float)(pos2/10)*qSin(((teta2-orientasi)%360)/PI))+tmp[4]; //global position dalam cartesian X (C)
+        tmp[9]=((float)(pos2/10)*qCos(((teta2-orientasi)%360)/PI))+tmp[5]; //global position dalam cartesian X (C)
         tmp[10]=pos1;   //B dist
         tmp[11]=teta1;  //B angle
         tmp[12]=pos2;   //C dist
@@ -452,7 +452,7 @@ void MainWindow::serialRecv()
         tmp[14]=(float)cartsT;   //set point orientasi
         tmp[15]=(float)cartsY;   //set point jarak Y (cm)
         tmp[16]=(float)cartX/10; //self step dalam cartesian X
-        tmp[17]=(float)cartY/10; //self step dalam cartesian Y
+        tmp[17]=(float)cartY; //self step dalam cartesian Y
         tmp[18]= apit;
         tmp[19]=0;   //self pos dalam LiDAR
         tmp[20]=0;   //self pos dalam LiDAR

@@ -33,12 +33,12 @@ void detailed_table::get_tableContent(float time,char *charBuff){
     tmp[1]=(float)sh_gasR/10;  //ppm gas kanan
     tmp[2]=(float)sh_pid0/10;  //pwm kiri
     tmp[3]=(float)sh_pid1/10;  //pwm kanan
-    tmp[4]=(float)sh_cartgX/50;    //self global position dalam cartesian X (A)
-    tmp[5]=(float)sh_cartgY/50;    //self global position dalam cartesian Y (A)
-    tmp[6]=((float)(sh_pos1/10)*qSin((sh_teta1+sh_orientasi)/PI))+tmp[4]; //global position dalam cartesian X (B)
-    tmp[7]=((float)(sh_pos1/10)*qCos((sh_teta1+sh_orientasi)/PI))+tmp[5]; //global position dalam cartesian X (B)
-    tmp[8]=((float)(sh_pos2/10)*qSin((sh_teta2+sh_orientasi)/PI))+tmp[4]; //global position dalam cartesian X (C)
-    tmp[9]=((float)(sh_pos2/10)*qCos((sh_teta2+sh_orientasi)/PI))+tmp[5]; //global position dalam cartesian X (C)
+    tmp[4]=(float)sh_cartgX/10;    //self global position dalam cartesian X (A)
+    tmp[5]=(float)sh_cartgY/10;    //self global position dalam cartesian Y (A)
+    tmp[6]=((float)(sh_pos1/10)*qSin((sh_teta1-sh_orientasi)/PI))+tmp[4]; //global position dalam cartesian X (B)
+    tmp[7]=((float)(sh_pos1/10)*qCos((sh_teta1-sh_orientasi)/PI))+tmp[5]; //global position dalam cartesian X (B)
+    tmp[8]=((float)(sh_pos2/10)*qSin((sh_teta2-sh_orientasi)/PI))+tmp[4]; //global position dalam cartesian X (C)
+    tmp[9]=((float)(sh_pos2/10)*qCos((sh_teta2-sh_orientasi)/PI))+tmp[5]; //global position dalam cartesian X (C)
     tmp[10]=sh_pos1;   //B dist
     tmp[11]=sh_teta1;  //B angle
     tmp[12]=sh_pos2;   //C dist
@@ -47,7 +47,7 @@ void detailed_table::get_tableContent(float time,char *charBuff){
     tmp[14]=(float)sh_cartsT;   //set point orientasi
     tmp[15]=(float)sh_cartsY;   //set point jarak Y (cm)
     tmp[16]=(float)sh_cartX/10; //self step dalam cartesian X
-    tmp[17]=(float)sh_cartY/10; //self step dalam cartesian Y
+    tmp[17]=(float)sh_cartY; //self step dalam cartesian Y
     tmp[18]= angle;
     tmp[19]=0;   //self pos dalam LiDAR
     tmp[20]=0;   //self pos dalam LiDAR
